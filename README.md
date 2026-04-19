@@ -20,10 +20,10 @@ This project implements a **32-bit single-cycle RISC-V processor** in VHDL targe
 ![Top Level](docs/RISC-V_SC-Impl_Schema.png)
 
 ### Datapath + Control
-![Datapath](docs/RISC_Vibi_BD.png)
+![Datapath](docs/RISC_Vibi_BD.pdf)
 
 ### Full Schematic
-![Schematic](docs/schem_risc.png)
+![Schematic](docs/schem_risc.pdf)
 
 > If images do not render, ensure they are `.png` and located in the `docs/` folder.
 
