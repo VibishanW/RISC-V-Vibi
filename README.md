@@ -1,183 +1,294 @@
-Vibi's RISC-V
+\# Vibi's RISC-V
 
 
 
-Tools/Versioning:
-Vivado 2025.2
-CMOD Spartan 7 FPGA
-Digilent Drivers
+\## Tools / Versioning
 
 
 
-Overview
+\- Vivado 2025.2  
 
+\- Digilent Cmod S7 (Spartan-7 FPGA)  
 
+\- Digilent USB/JTAG Drivers  
 
-This project implements a 32-bit single-cycle RISC-V processor in VHDL targeting a Spartan-7 FPGA (Cmod S7). The processor executes one instruction per clock cycle and follows a Harvard-style architecture with separate instruction and data memory.
 
 
+\---
 
-Core Characteristics
 
-Feature	Description
 
-Architecture	Single-cycle
+\## Overview
 
-ISA	Partial RV32I
 
-Word size	32-bit
 
-Registers	32 (x0–x31)
+This project implements a \*\*32-bit single-cycle RISC-V processor\*\* in VHDL targeting a Spartan-7 FPGA (Cmod S7). The processor executes one instruction per clock cycle and follows a Harvard-style architecture with separate instruction and data memory.
 
-x0	Hardwired to 0
 
-Instruction width	32-bit
 
-Addressing	Byte-addressed, word-aligned
+\---
 
-Execution	1 instruction per cycle
 
 
+\## Architecture Diagrams
 
-Instruction Support
 
 
+\### Top-Level / System
 
-R-Type Instructions
+!\[Top Level](docs/RISC-V\_SC-Impl\_Schema.png)
 
-Instruction	Operation
 
-add	Addition
 
-sub	Subtraction
+\### Datapath + Control
 
-and	Bitwise AND
+!\[Datapath](docs/RISC\_Vibi\_BD.pdf)
 
-or	Bitwise OR
 
-xor	Bitwise XOR
 
-sll	Shift left logical
+\### Full Schematic
 
-srl	Shift right logical
+!\[Schematic](docs/schem\_risc.pdf)
 
-sra	Shift right arithmetic
 
-slt	Signed comparison
 
-sltu	Unsigned comparison
+> These diagrams show the full datapath, control unit, and module connectivity of the processor.
 
+> The datapath/control diagram illustrates PC update logic, ALU flow, memory access, and control decoding :contentReference\[oaicite:0]{index=0}
 
 
-I-Type Instructions
 
-Instruction	Operation
+\---
 
-addi	Add immediate
 
-andi	AND immediate
 
-ori	OR immediate
+\## Core Characteristics
 
-xori	XOR immediate
 
-slti	Signed compare
 
-sltiu	Unsigned compare
+| Feature | Description |
 
+|--------|------------|
 
+| Architecture | Single-cycle |
 
-Memory Instructions
+| ISA | Partial RV32I |
 
-Instruction	Description
+| Word size | 32-bit |
 
-lw	Load word
+| Registers | 32 (x0–x31) |
 
-sw	Store word
+| x0 | Hardwired to 0 |
 
+| Instruction width | 32-bit |
 
+| Addressing | Byte-addressed, word-aligned |
 
-Control Flow
+| Execution | 1 instruction per cycle |
 
-Instruction	Description
 
-beq	Branch if equal
 
-bne	Branch if not equal
+\---
 
-blt	Branch if less than
 
-bge	Branch if greater/equal
 
-jal	Jump and link
+\## Instruction Support
 
-jalr	Jump and link register
 
 
+\### R-Type Instructions
 
-Upper Immediate
 
-Instruction	Description
 
-lui	Load upper immediate
+| Instruction | Operation |
 
-auipc	Add upper immediate to PC
+|------------|----------|
 
+| add | Addition |
 
+| sub | Subtraction |
 
-Datapath Components
+| and | Bitwise AND |
 
-Component	Description
+| or  | Bitwise OR |
 
-Program Counter	Tracks current instruction
+| xor | Bitwise XOR |
 
-Instruction Memory	ROM storing program
+| sll | Shift left logical |
 
-Register File	32 registers
+| srl | Shift right logical |
 
-ALU	Arithmetic/logic operations
+| sra | Shift right arithmetic |
 
-Immediate Generator	Instruction decoding
+| slt | Signed comparison |
 
-Data Memory	RAM for loads/stores
+| sltu | Unsigned comparison |
 
-Control Unit	Generates control signals
 
 
+\---
 
-Memory System
 
-Memory	Size	Type
 
-Instruction Memory	4 KB	ROM
+\### I-Type Instructions
 
-Data Memory	4 KB	RAM
 
 
+| Instruction | Operation |
 
-Addressing
+|------------|----------|
 
-Feature	Description
+| addi | Add immediate |
 
-Addressing	Byte-addressed
+| andi | AND immediate |
 
-Alignment	Word-aligned
+| ori  | OR immediate |
 
-Indexing	address(11 downto 2)
+| xori | XOR immediate |
 
-Tools / Environment
+| slti | Signed compare |
 
-Tool	Version
+| sltiu | Unsigned compare |
 
-Vivado	2025.2
 
-FPGA	Digilent Cmod S7 (Spartan-7)
 
-Drivers	Digilent USB/JTAG
+\---
 
 
 
-Assembler Usage
+\### Memory Instructions
+
+
+
+| Instruction | Description |
+
+|------------|-------------|
+
+| lw | Load word |
+
+| sw | Store word |
+
+
+
+\---
+
+
+
+\### Control Flow
+
+
+
+| Instruction | Description |
+
+|------------|-------------|
+
+| beq | Branch if equal |
+
+| bne | Branch if not equal |
+
+| blt | Branch if less than |
+
+| bge | Branch if greater/equal |
+
+| jal | Jump and link |
+
+| jalr | Jump and link register |
+
+
+
+\---
+
+
+
+\### Upper Immediate
+
+
+
+| Instruction | Description |
+
+|------------|-------------|
+
+| lui | Load upper immediate |
+
+| auipc | Add upper immediate to PC |
+
+
+
+\---
+
+
+
+\## Datapath Components
+
+
+
+| Component | Description |
+
+|----------|------------|
+
+| Program Counter | Tracks instruction address |
+
+| Instruction Memory | ROM storing program |
+
+| Register File | 32 registers |
+
+| ALU | Arithmetic/logic operations |
+
+| Immediate Generator | Instruction decoding |
+
+| Data Memory | RAM for loads/stores |
+
+| Control Unit | Generates control signals |
+
+
+
+The full structural breakdown of modules and connections (datapath + control unit + memory + ALU) is shown in the system schematic :contentReference\[oaicite:1]{index=1}
+
+
+
+\---
+
+
+
+\## Memory System
+
+
+
+| Memory | Size | Type |
+
+|-------|-----|------|
+
+| Instruction Memory | 4 KB | ROM |
+
+| Data Memory | 4 KB | RAM |
+
+
+
+\---
+
+
+
+\## Addressing
+
+
+
+| Feature | Description |
+
+|--------|------------|
+
+| Addressing | Byte-addressed |
+
+| Alignment | Word-aligned |
+
+| Indexing | address(11 downto 2) |
+
+
+
+\---
+
+
+
+\## Assembler Usage
 
 
 
@@ -185,19 +296,31 @@ This project includes a custom Python assembler:
 
 
 
-Script: main.py
+\- Script: `main.py`  
 
-Input: genInstr.s
+\- Input: `genInstr.s`  
 
-Output: VHDL ROM initialization
+\- Output: VHDL ROM initialization  
 
-Step 1 — Write Program
+
+
+\---
+
+
+
+\### Step 1 — Write Program
 
 
 
 Edit:
 
+
+
+```
+
 genInstr.s
+
+```
 
 
 
@@ -205,53 +328,77 @@ Example:
 
 
 
+```
+
 start:
 
-addi x1, x0, 5
+&#x20;   addi x1, x0, 5
 
-addi x2, x0, 10
+&#x20;   addi x2, x0, 10
 
-add x3, x1, x2
+&#x20;   add  x3, x1, x2
 
-sw x3, 0(x0)
+&#x20;   sw   x3, 0(x0)
 
-lw x4, 0(x0)
+&#x20;   lw   x4, 0(x0)
 
 
 
 loop:
 
-jal x0, loop
+&#x20;   jal x0, loop
+
+```
 
 
 
-Step 2 — Run Assembler
+\---
 
 
+
+\### Step 2 — Run Assembler
+
+
+
+```
 
 python main.py genInstr.s --format vhdl -o rom\_init.txt
 
-
-
-Step 3 — Load Into Instruction Memory
+```
 
 
 
-Open your instruction memory file and replace ROM contents:
+\---
 
 
+
+\### Step 3 — Load Into Instruction Memory
+
+
+
+Replace ROM contents in your VHDL:
+
+
+
+```
 
 constant ROM : t\_imem := (
 
-\-- paste rom\_init.txt contents here
+&#x20;   -- paste rom\_init.txt contents here
 
-others => x"00000013"
+&#x20;   others => x"00000013"
 
 );
 
+```
 
 
-Step 4 — Build FPGA Bitstream
+
+\---
+
+
+
+\### Step 4 — Build FPGA Bitstream
 
 
 
@@ -259,69 +406,95 @@ Run in Vivado:
 
 
 
-Synthesis
+\- Synthesis  
 
-Implementation
+\- Implementation  
 
-Generate Bitstream
-
-Step 5 — Program the Board
-
-Open Hardware Manager
-
-Connect to Cmod S7
-
-Program device with .bit file
-
-Execution Workflow
+\- Generate Bitstream  
 
 
+
+\---
+
+
+
+\### Step 5 — Program the Board
+
+
+
+\- Open Hardware Manager  
+
+\- Connect to Cmod S7  
+
+\- Program device with `.bit` file  
+
+
+
+\---
+
+
+
+\## Execution Workflow
+
+
+
+```
 
 Assembly (genInstr.s)
 
-\- Python Assembler (main.py)
+→ Python Assembler (main.py)
 
-\- Machine Code (rom\_init.txt)
+→ Machine Code (rom\_init.txt)
 
-\- Instruction Memory (VHDL)
+→ Instruction Memory (VHDL)
 
-\- CPU Execution on FPGA
+→ CPU Execution on FPGA
 
-\- Output (LEDs / signals)
+→ Output (LEDs / signals)
 
-
-
-Expected Behavior on FPGA
-
-Sequential Execution
-
-LEDs change continuously
-
-Represents PC incrementing
-
-Infinite Loop
+```
 
 
 
-Example:
+\---
 
 
+
+\## Expected Behavior on FPGA
+
+
+
+\### Sequential Execution
+
+\- LEDs change continuously  
+
+\- Represents PC incrementing  
+
+
+
+\### Infinite Loop
+
+
+
+```
 
 loop:
 
-jal x0, loop
+&#x20;   jal x0, loop
+
+```
 
 
 
-LEDs freeze or repeat pattern
-
-Arithmetic Result (if mapped)
+\- LEDs freeze or repeat  
 
 
 
-If LEDs are connected to ALU output:
+\### Arithmetic Result
 
 
 
-Example result 15 → LEDs show 1111
+If LEDs map to ALU output:
+
+\- Example result 15 → LEDs show `1111` 
 
